@@ -29,6 +29,7 @@ public class login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        ForgetPassword = new java.awt.Label();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -59,7 +60,6 @@ public class login extends javax.swing.JFrame {
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 153));
         jButton1.setText("LOGIN");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -69,7 +69,6 @@ public class login extends javax.swing.JFrame {
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 153));
         jButton2.setText("REGISTER");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -87,6 +86,15 @@ public class login extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("WELCOME!!!");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 39, 171, 37));
+
+        ForgetPassword.setForeground(new java.awt.Color(255, 255, 255));
+        ForgetPassword.setText("Forget Password");
+        ForgetPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ForgetPasswordMouseClicked(evt);
+            }
+        });
+        jPanel2.add(ForgetPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 100, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 210, 440));
 
@@ -177,6 +185,10 @@ public class login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void ForgetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ForgetPasswordMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ForgetPasswordMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -231,6 +243,7 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Label ForgetPassword;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;

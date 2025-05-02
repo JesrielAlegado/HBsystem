@@ -61,7 +61,6 @@ public class register extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setLayout(null);
 
-        uname.setBackground(new java.awt.Color(153, 255, 255));
         uname.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 unameMouseEntered(evt);
@@ -75,7 +74,6 @@ public class register extends javax.swing.JFrame {
         jPanel1.add(uname);
         uname.setBounds(120, 140, 130, 30);
 
-        email.setBackground(new java.awt.Color(153, 255, 255));
         email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailActionPerformed(evt);
@@ -101,12 +99,9 @@ public class register extends javax.swing.JFrame {
         jLabel4.setText("Password:");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(50, 270, 70, 13);
-
-        confirm_pass.setBackground(new java.awt.Color(153, 255, 255));
         jPanel1.add(confirm_pass);
         confirm_pass.setBounds(120, 300, 130, 30);
 
-        password.setBackground(new java.awt.Color(153, 255, 255));
         password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordActionPerformed(evt);
@@ -121,7 +116,7 @@ public class register extends javax.swing.JFrame {
         jPanel1.add(jLabel6);
         jLabel6.setBounds(20, 310, 100, 20);
 
-        confirm.setBackground(new java.awt.Color(0, 153, 0));
+        confirm.setBackground(new java.awt.Color(255, 255, 255));
         confirm.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         confirm.setText("CONFIRM");
         confirm.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -139,7 +134,7 @@ public class register extends javax.swing.JFrame {
         jPanel1.add(jLabel7);
         jLabel7.setBounds(60, 0, 170, 50);
 
-        jButton2.setBackground(new java.awt.Color(0, 153, 0));
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setText("EXIT");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,7 +151,6 @@ public class register extends javax.swing.JFrame {
         jButton2.setBounds(100, 430, 73, 23);
 
         role.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        role.setForeground(new java.awt.Color(0, 153, 0));
         role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff" }));
         role.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,7 +160,6 @@ public class register extends javax.swing.JFrame {
         jPanel1.add(role);
         role.setBounds(140, 370, 90, 20);
 
-        lname.setBackground(new java.awt.Color(153, 255, 255));
         lname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lnameActionPerformed(evt);
@@ -175,7 +168,6 @@ public class register extends javax.swing.JFrame {
         jPanel1.add(lname);
         lname.setBounds(120, 100, 130, 30);
 
-        fname.setBackground(new java.awt.Color(153, 255, 255));
         fname.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 fnameMouseClicked(evt);
@@ -200,8 +192,6 @@ public class register extends javax.swing.JFrame {
         jLabel8.setText("LastName:");
         jPanel1.add(jLabel8);
         jLabel8.setBounds(60, 100, 60, 30);
-
-        contact.setBackground(new java.awt.Color(153, 255, 255));
         jPanel1.add(contact);
         contact.setBounds(120, 220, 130, 30);
 
@@ -220,8 +210,8 @@ public class register extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
