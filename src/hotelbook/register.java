@@ -124,6 +124,11 @@ public class register extends javax.swing.JFrame {
                 confirmMouseClicked(evt);
             }
         });
+        confirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmActionPerformed(evt);
+            }
+        });
         jPanel1.add(confirm);
         confirm.setBounds(30, 370, 90, 23);
 
@@ -393,6 +398,10 @@ public class register extends javax.swing.JFrame {
     private void fnameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fnameMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_fnameMouseClicked
+
+    private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_confirmActionPerformed
 
     
     public static void main(String args[]) {
