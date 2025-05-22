@@ -32,7 +32,6 @@ public class addRoom extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         pp = new javax.swing.JTextField();
         rn = new javax.swing.JTextField();
         rt = new javax.swing.JTextField();
@@ -45,21 +44,10 @@ public class addRoom extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         Submit = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(102, 102, 102));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
-        );
-
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, -1, 40));
 
         pp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,18 +83,23 @@ public class addRoom extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 240, 190));
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Description");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, -1, -1));
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Room Number");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Room Type");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Bed Number");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Price");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
 
@@ -116,7 +109,12 @@ public class addRoom extends javax.swing.JPanel {
                 SubmitActionPerformed(evt);
             }
         });
-        add(Submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 320, 100, 30));
+        add(Submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, 100, 30));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Add Room");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 84, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void ppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppActionPerformed
@@ -137,50 +135,50 @@ public class addRoom extends javax.swing.JPanel {
 
     private void SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitActionPerformed
         String rnumber = rn.getText().trim();
-    String rType = rt.getText().trim();
-    String bNumber = bn.getText().trim();
-    String price = pp.getText().trim();
-    String description = des.getText().trim();
-    String status = "Available";  // Default room status
+        String rType = rt.getText().trim();
+        String bNumber = bn.getText().trim();
+        String price = pp.getText().trim();
+        String description = des.getText().trim();
+        String status = "Available";  // Default room status
 
-    try {
-        connectdb con = new connectdb();
-        Connection conn = con.getConnection();
+        try {
+            connectdb con = new connectdb();
+            Connection conn = con.getConnection();
 
-        // Prepare the SQL insert query
-        String query = "INSERT INTO rooms (room_number, room_type, bed_count, price_per_night, description, availability_status) " +
-                       "VALUES (?, ?, ?, ?, ?, ?)";
-        PreparedStatement pstmt = conn.prepareStatement(query);
+            // Prepare the SQL insert query
+            String query = "INSERT INTO rooms (room_number, room_type, bed_count, price_per_night, description, availability_status) " +
+                           "VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(query);
 
-        // Set the parameters
-        pstmt.setString(1, rnumber);
-        pstmt.setString(2, rType);
-        pstmt.setInt(3, Integer.parseInt(bNumber));
-        pstmt.setDouble(4, Double.parseDouble(price));
-        pstmt.setString(5, description);
-        pstmt.setString(6, status);  // "Available"
+            // Set the parameters
+            pstmt.setString(1, rnumber);
+            pstmt.setString(2, rType);
+            pstmt.setInt(3, Integer.parseInt(bNumber));
+            pstmt.setDouble(4, Double.parseDouble(price));
+            pstmt.setString(5, description);
+            pstmt.setString(6, status);  // "Available"
 
-        // Execute the insert
-        int rowsInserted = pstmt.executeUpdate();
-        if (rowsInserted > 0) {
-            JOptionPane.showMessageDialog(this, "Room inserted successfully!");
-            
-            // Close the registration form (JDialog)
-                                    JDialog parentDialog = (JDialog) SwingUtilities.getWindowAncestor(this);
-                                    if (parentDialog != null) {
-                                        parentDialog.dispose();  // Closes the JDialog
-                                    }
+            // Execute the insert
+            int rowsInserted = pstmt.executeUpdate();
+            if (rowsInserted > 0) {
+                JOptionPane.showMessageDialog(this, "Room inserted successfully!");
+
+                // Close the registration form (JDialog)
+                                        JDialog parentDialog = (JDialog) SwingUtilities.getWindowAncestor(this);
+                                        if (parentDialog != null) {
+                                            parentDialog.dispose();  // Closes the JDialog
+                                        }
+            }
+
+            // Close statement (optional: close conn if you're not using pooling)
+            pstmt.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Please enter valid numbers for bed count and price.");
         }
-
-        // Close statement (optional: close conn if you're not using pooling)
-        pstmt.close();
-
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Please enter valid numbers for bed count and price.");
-    }
     }//GEN-LAST:event_SubmitActionPerformed
 
 
@@ -193,7 +191,7 @@ public class addRoom extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField pp;
     private javax.swing.JTextField rn;

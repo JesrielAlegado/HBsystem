@@ -5,6 +5,7 @@ import config.bookingSession;
 import config.connectdb;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
@@ -45,7 +46,6 @@ public class propertiesPage extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         Proceed = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         roomTable = new javax.swing.JTable();
@@ -60,9 +60,6 @@ public class propertiesPage extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(Proceed, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, -1, -1));
-
-        jButton2.setText("Select");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, -1));
 
         roomTable.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         roomTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -107,97 +104,60 @@ public class propertiesPage extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ProceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProceedActionPerformed
-       int selectedRow = roomTable.getSelectedRow();
+      int selectedRow = roomTable.getSelectedRow();
 
-if (selectedRow == -1) {
-    JOptionPane.showMessageDialog(this, "Please select a property first.");
-    return;
-}
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a property first.");
+            return;
+        }
+        
+        String currentStatus = roomTable.getValueAt(selectedRow, 5).toString(); 
 
-// Get current status safely (assuming status is in column 5)
-Object statusObj = roomTable.getValueAt(selectedRow, 5);
-if (statusObj == null) {
-    JOptionPane.showMessageDialog(this, "Selected property status is missing.");
-    return;
-}
+        if ("Booked".equalsIgnoreCase(currentStatus)) {
+            JOptionPane.showMessageDialog(this, "This property is already booked. Please choose a different one.");
+            return; 
+        }
 
-String currentStatus = statusObj.toString();
+        String roomId = roomTable.getValueAt(selectedRow, 0).toString();
+        String roomName = roomTable.getValueAt(selectedRow, 1).toString();
+        String roomType = roomTable.getValueAt(selectedRow, 2).toString();
+        String bedCount = roomTable.getValueAt(selectedRow, 3).toString();
+        String Price = roomTable.getValueAt(selectedRow, 4).toString();
+        
+        bookingSession book = bookingSession.getInstance();
+        book.setRoomId(roomId);
+        book.setRoomNumber(roomName);
+        book.setRoomType(roomType);
+        book.setBedCount(bedCount);
+        book.setPricePerNight(Price);
+        
+        roomTable.setValueAt("Booked", selectedRow, 5);
 
-if ("Booked".equalsIgnoreCase(currentStatus)) {
-    JOptionPane.showMessageDialog(this, "This property is already booked. Please choose a different one.");
-    return;
-}
+        JOptionPane.showMessageDialog(this, 
+            "Room \"" + roomName + "\" has been successfully booked!", 
+            "Booking Confirmed", 
+            JOptionPane.INFORMATION_MESSAGE);
 
-// Get other room details safely
-Object roomIdObj = roomTable.getValueAt(selectedRow, 0);
-Object roomNameObj = roomTable.getValueAt(selectedRow, 1);
-Object bedcountObj = roomTable.getValueAt(selectedRow, 2);
-Object priceObj = roomTable.getValueAt(selectedRow, 3);
-
-if (roomIdObj == null || roomNameObj == null || bedcountObj == null || priceObj == null) {
-    JOptionPane.showMessageDialog(this, "Selected property data is incomplete.");
-    return;
-}
-
-String roomId = roomIdObj.toString().trim();
-String roomName = roomNameObj.toString().trim();
-String bedcount = bedcountObj.toString().trim();
-String price = priceObj.toString().trim();
-
-// Get booking session instance
-bookingSession booking = bookingSession.getInstance();
-if (booking == null) {
-    JOptionPane.showMessageDialog(this, "Booking session is not initialized.");
-    return;
-}
-
-try {
-    booking.setRoomId(Integer.parseInt(roomId));
-    booking.setBedCount(Integer.parseInt(bedcount));
-    booking.setPricePerNight(Double.parseDouble(price));
-} catch (NumberFormatException e) {
-    JOptionPane.showMessageDialog(this, "Invalid number format for Room ID, Bed Count or Price.");
-    return;
-}
-
-booking.setRoomNumber(roomName);
-
-// Debug Output
-System.out.println("=== Room Session Debug ===");
-System.out.println("Room ID: " + booking.getRoomId());
-System.out.println("Room Name: " + booking.getRoomNumber());
-System.out.println("Bed Count: " + booking.getBedCount());
-System.out.println("Price per Night: " + booking.getPricePerNight());
-
-// Confirm dialog
-int option = JOptionPane.showConfirmDialog(
-    this,
-    "Room \"" + roomName + "\" has been selected.\nDo you want to proceed with this room?",
-    "Room Selection Confirmation",
-    JOptionPane.YES_NO_OPTION,
-    JOptionPane.QUESTION_MESSAGE
-);
-
-if (option == JOptionPane.YES_OPTION) {
-    // Open next page inside JDesktopPane like your guest code
-//    JDesktopPane desktop = this.getDesktopPane();
-//    BookingDetailsPage bookingDetails = new BookingDetailsPage(); // replace with your actual next page class
-//    desktop.add(bookingDetails);
-//    bookingDetails.setVisible(true);
-
+    JDesktopPane desktop = this.getDesktopPane();
+    BookingDate books = new BookingDate();
+    desktop.add(books);
+    books.setVisible(true);
+    
     // Close current window if needed
     this.dispose();
-} else {
-    System.out.println("User cancelled proceeding to next step.");
-}
-
+        // 🔍 Debug output
+        System.out.println("=== Property Selection Debug ===");
+        System.out.println("Selected Room ID: " + book.getRoomId());
+        System.out.println("Selected Room Number: " + book.getRoomNumber());
+        System.out.println("Selected Room Type: " + book.getRoomType());
+        System.out.println("Selected Bed Count: " + book.getBedCount());
+        System.out.println("Selected Room Price: " + book.getPricePerNight());
 
     }//GEN-LAST:event_ProceedActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Proceed;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

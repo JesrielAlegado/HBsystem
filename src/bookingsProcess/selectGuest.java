@@ -49,7 +49,6 @@ public class selectGuest extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         guest_tbl = new javax.swing.JTable();
-        Proceed = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         jPanel1.setPreferredSize(new java.awt.Dimension(510, 364));
@@ -77,14 +76,6 @@ public class selectGuest extends javax.swing.JInternalFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 470, 300));
 
-        Proceed.setText("Proceed");
-        Proceed.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ProceedActionPerformed(evt);
-            }
-        });
-        jPanel1.add(Proceed, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 330, -1, -1));
-
         jButton2.setText("Select");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,14 +97,6 @@ public class selectGuest extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ProceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProceedActionPerformed
-    JDesktopPane desktop = this.getDesktopPane();
-    propertiesPage properties = new propertiesPage();
-    desktop.add(properties);
-    properties.setVisible(true);
-
-    }//GEN-LAST:event_ProceedActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        int selectedRow = guest_tbl.getSelectedRow();
@@ -150,7 +133,7 @@ if (booking == null) {
 }
 
 try {
-    booking.setGuestId(Integer.parseInt(guestId));
+   booking.setGuestId(String.valueOf(guestId));
 } catch (NumberFormatException e) {
     JOptionPane.showMessageDialog(this, "Invalid Guest ID format.");
     return;
@@ -194,7 +177,6 @@ if (option == JOptionPane.YES_OPTION) {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Proceed;
     private javax.swing.JTable guest_tbl;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;

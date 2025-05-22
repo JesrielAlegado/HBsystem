@@ -1,19 +1,70 @@
 
 package InternalPage;
 
+import ReceiptPrinting.IndividualPrinting;
+import config.connectdb;
 import floatedPage.addBookings;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class Bookings extends javax.swing.JInternalFrame {
 
     public Bookings() {
         initComponents();
+        displayData();
            this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
         BasicInternalFrameUI bi = (BasicInternalFrameUI)this.getUI();
         bi.setNorthPane(null);
     }
+    
+  public void displayData() {
+    connectdb dbc = new connectdb();
+    try {
+        String sql = "SELECT b.booking_id, " +
+                     "g.full_name AS guest_name, " +
+                     "r.room_number, r.room_type, " +
+                     "b.check_in, b.check_out, " +
+                     "b.total_price, b.status " +
+                     "FROM booking b " +
+                     "JOIN guest g ON b.guest_id = g.guest_id " +
+                     "JOIN rooms r ON b.room_id = r.room_id";
+
+        ResultSet rs = dbc.getData(sql);
+        DefaultTableModel model = (DefaultTableModel) book_tbl.getModel();
+        model.setRowCount(0); // Clear existing data
+
+        while (rs.next()) {
+            String bookingId = rs.getString("booking_id");
+            String guestName = rs.getString("guest_name");
+            String roomNumber = rs.getString("room_number");
+            String roomType = rs.getString("room_type");
+            String checkIn = rs.getString("check_in");
+            String checkOut = rs.getString("check_out");
+            String totalPrice = rs.getString("total_price");
+            String status = rs.getString("status");
+
+            model.addRow(new String[]{
+                bookingId,
+                guestName,
+                roomNumber + " - " + roomType,
+                checkIn + " to " + checkOut,
+                totalPrice,
+                status
+            });
+        }
+    } catch (SQLException ex) {
+        System.out.println("Errors: " + ex.getMessage());
+    }
+}
+
      Color navcolor = new Color(51,51,51);
         Color headcolor = new Color(0,0,0);
         Color bodycolor = new Color(102,102,102);
@@ -24,7 +75,7 @@ public class Bookings extends javax.swing.JInternalFrame {
         guest = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        room_tbl = new javax.swing.JTable();
+        book_tbl = new javax.swing.JTable();
         editPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         refreshPanel = new javax.swing.JPanel();
@@ -36,13 +87,14 @@ public class Bookings extends javax.swing.JInternalFrame {
         search_bar = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         guest.setBackground(new java.awt.Color(255, 255, 255));
         guest.setPreferredSize(new java.awt.Dimension(724, 447));
         guest.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        room_tbl.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        room_tbl.setModel(new javax.swing.table.DefaultTableModel(
+        book_tbl.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        book_tbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -50,16 +102,16 @@ public class Bookings extends javax.swing.JInternalFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Room Number", "Room Type", "Bed Count", "Price ", "Status"
+                "Id", "Guest Name", "Room Info", "Check In/Out", "Total Price ", "Status"
             }
         ));
-        room_tbl.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        room_tbl.setRowHeight(25);
-        room_tbl.setSelectionBackground(new java.awt.Color(255, 0, 0));
-        room_tbl.setShowVerticalLines(false);
-        room_tbl.getTableHeader().setResizingAllowed(false);
-        room_tbl.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(room_tbl);
+        book_tbl.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        book_tbl.setRowHeight(25);
+        book_tbl.setSelectionBackground(new java.awt.Color(255, 0, 0));
+        book_tbl.setShowVerticalLines(false);
+        book_tbl.getTableHeader().setResizingAllowed(false);
+        book_tbl.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(book_tbl);
 
         jScrollPane1.setViewportView(jScrollPane2);
 
@@ -138,7 +190,7 @@ public class Bookings extends javax.swing.JInternalFrame {
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Add Room");
+        jLabel7.setText("Add Booking");
         addPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 8, -1, -1));
 
         guest.add(addPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, 100, 30));
@@ -172,6 +224,14 @@ public class Bookings extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 3, 20, 20));
 
         guest.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 13, 25, 25));
+
+        jButton1.setText("print");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        guest.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 380, 90, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -257,12 +317,83 @@ public class Bookings extends javax.swing.JInternalFrame {
         //        sorter.setRowFilter(RowFilter.regexFilter(search_bar.getText()));
     }//GEN-LAST:event_search_barKeyReleased
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int rowIndex = book_tbl.getSelectedRow();
+
+if (rowIndex < 0) {
+    JOptionPane.showMessageDialog(null, "Please select an item!");
+} else {
+    try {
+        connectdb dbc = new connectdb();
+        TableModel tbl = book_tbl.getModel();
+        String bookingId = tbl.getValueAt(rowIndex, 0).toString();
+
+        String query = "SELECT b.*, " +
+                       "g.full_name, g.contact_number, g.email, " +
+                       "r.room_number, r.room_type, r.bed_count, r.price_per_night AS room_price " +
+                       "FROM booking b " +
+                       "JOIN guest g ON b.guest_id = g.guest_id " +
+                       "JOIN rooms r ON b.room_id = r.room_id " +
+                       "WHERE b.booking_id = '" + bookingId + "'";
+
+        ResultSet rs = dbc.getData(query);
+
+        if (rs.next()) {
+            String status = rs.getString("status");
+            if ("Pending".equalsIgnoreCase(status) || "Rejected".equalsIgnoreCase(status)) {
+                JOptionPane.showMessageDialog(null, "Cannot print receipt for a booking with status: " + status);
+                return;
+            }
+
+            JDialog dialog = new JDialog();
+            IndividualPrinting pr = new IndividualPrinting();
+
+            LocalDate currentDate = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            // Guest info
+            pr.fn.setText(rs.getString("full_name"));
+            pr.p.setText(rs.getString("contact_number"));
+            pr.e.setText(rs.getString("email"));
+
+            // Booking info
+            pr.ci.setText(rs.getString("check_in"));
+            pr.co.setText(rs.getString("check_out"));
+            pr.n.setText(rs.getString("nights"));
+
+            // Room info
+            pr.rn.setText((rs.getString("room_number")));
+            pr.rt.setText((rs.getString("room_type")));
+            pr.bc.setText((rs.getString("bed_count"))); // renamed bed_count to bedType label
+            pr.ppn.setText((rs.getString("room_price")));
+
+            // Booking summary
+            pr.t.setText(rs.getString("total_price"));
+            pr.r.setText(rs.getString("booking_id"));
+            pr.date.setText(currentDate.format(formatter));
+
+            dialog.add(pr);
+            dialog.pack();
+            dialog.setLocationRelativeTo(null);
+            dialog.setModal(true);
+            dialog.setVisible(true);
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
+    }
+}
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel addPanel;
+    private javax.swing.JTable book_tbl;
     private javax.swing.JPanel deletePanel;
     private javax.swing.JPanel editPanel;
     private javax.swing.JPanel guest;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -272,7 +403,6 @@ public class Bookings extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel refreshPanel;
-    private javax.swing.JTable room_tbl;
     private javax.swing.JTextField search_bar;
     // End of variables declaration//GEN-END:variables
 }

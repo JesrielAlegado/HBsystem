@@ -4,18 +4,36 @@ package config;
 public class bookingSession {
     
     private static bookingSession instance;
-    private int guestId;
+    private String guestId;
     private String fullName;
     private String email;
     private String contactNumber;
     private String address; 
-    private int roomId;
+    private String roomId;
     private String roomNumber;
     private String roomType;
-    private int bedCount;
-    private double pricePerNight;
+    private String bedCount;
+    private String pricePerNight;
     private String availabilityStatus;
     private String description;
+    private String checkIn;
+    private String checkOut;
+
+    public String getCheckIn() {
+        return checkIn;
+    }
+
+    public void setCheckIn(String checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public String getCheckOut() {
+        return checkOut;
+    }
+
+    public void setCheckOut(String checkOut) {
+        this.checkOut = checkOut;
+    }
     
      public static synchronized bookingSession getInstance() {
         if(instance == null){
@@ -27,15 +45,16 @@ public class bookingSession {
     public static boolean isInstanceEmpty() {
         return instance == null;
     }
- 
 
-    public int getGuestId() {
+    public String getGuestId() {
         return guestId;
     }
 
-    public void setGuestId(int guestId) {
+    public void setGuestId(String guestId) {
         this.guestId = guestId;
     }
+
+
 
     public String getFullName() {
         return fullName;
@@ -60,8 +79,6 @@ public class bookingSession {
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
-    
-    
 
     public String getAddress() {
         return address;
@@ -71,11 +88,11 @@ public class bookingSession {
         this.address = address;
     }
 
-    public int getRoomId() {
+    public String getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(int roomId) {
+    public void setRoomId(String roomId) {
         this.roomId = roomId;
     }
 
@@ -95,19 +112,19 @@ public class bookingSession {
         this.roomType = roomType;
     }
 
-    public int getBedCount() {
+    public String getBedCount() {
         return bedCount;
     }
 
-    public void setBedCount(int bedCount) {
+    public void setBedCount(String bedCount) {
         this.bedCount = bedCount;
     }
 
-    public double getPricePerNight() {
+    public String getPricePerNight() {
         return pricePerNight;
     }
 
-    public void setPricePerNight(double pricePerNight) {
+    public void setPricePerNight(String pricePerNight) {
         this.pricePerNight = pricePerNight;
     }
 
@@ -126,8 +143,7 @@ public class bookingSession {
     public void setDescription(String description) {
         this.description = description;
     }
+ 
+
     
-    public bookingSession(){
-        
-    }
 }

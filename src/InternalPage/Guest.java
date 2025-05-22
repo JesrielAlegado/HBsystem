@@ -206,10 +206,11 @@ public class Guest extends javax.swing.JInternalFrame {
         });
         guest.add(search_bar, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 13, 170, 25));
 
-        add_panel.setBackground(new java.awt.Color(204, 255, 255));
+        add_panel.setBackground(new java.awt.Color(153, 153, 153));
         add_panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Contact Number");
         add_panel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 100, 30));
 
@@ -218,6 +219,7 @@ public class Guest extends javax.swing.JInternalFrame {
         add_panel.add(cn, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 190, 30));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Address");
         add_panel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 60, 30));
 
@@ -226,6 +228,7 @@ public class Guest extends javax.swing.JInternalFrame {
         add_panel.add(a, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 190, 30));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Full Name");
         add_panel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, 30));
 
@@ -234,6 +237,7 @@ public class Guest extends javax.swing.JInternalFrame {
         add_panel.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 190, 30));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Email");
         add_panel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 40, 30));
 
@@ -241,11 +245,12 @@ public class Guest extends javax.swing.JInternalFrame {
         ea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add_panel.add(ea, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 190, 30));
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setBackground(new java.awt.Color(255, 255, 255));
         jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Guest Form");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -3, -1, 30));
 
