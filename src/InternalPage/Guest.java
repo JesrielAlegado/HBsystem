@@ -58,7 +58,7 @@ public class Guest extends javax.swing.JInternalFrame {
         refreshPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         deletePanel = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        Delete = new javax.swing.JLabel();
         addPanel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         search_bar = new javax.swing.JTextField();
@@ -106,6 +106,9 @@ public class Guest extends javax.swing.JInternalFrame {
 
         editPanel.setBackground(new java.awt.Color(51, 51, 51));
         editPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 editPanelMouseEntered(evt);
             }
@@ -118,6 +121,11 @@ public class Guest extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Edit");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
         editPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 8, -1, -1));
 
         guest.add(editPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 100, 100, 30));
@@ -145,6 +153,9 @@ public class Guest extends javax.swing.JInternalFrame {
 
         deletePanel.setBackground(new java.awt.Color(51, 51, 51));
         deletePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deletePanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 deletePanelMouseEntered(evt);
             }
@@ -154,10 +165,10 @@ public class Guest extends javax.swing.JInternalFrame {
         });
         deletePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Delete");
-        deletePanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 8, -1, -1));
+        Delete.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        Delete.setForeground(new java.awt.Color(255, 255, 255));
+        Delete.setText("Delete");
+        deletePanel.add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 8, -1, -1));
 
         guest.add(deletePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, 100, 30));
 
@@ -388,8 +399,30 @@ public class Guest extends javax.swing.JInternalFrame {
         sorter.setRowFilter(RowFilter.regexFilter(search_bar.getText()));
     }//GEN-LAST:event_search_barKeyReleased
 
+    private void editPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editPanelMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editPanelMouseClicked
+
+    private void deletePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deletePanelMouseClicked
+          int selectedRow = guest_tbl.getSelectedRow();
+        if (selectedRow != -1) {
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this row?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                DefaultTableModel model = (DefaultTableModel) guest_tbl.getModel();
+                model.removeRow(selectedRow);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No row selected!");
+        }
+    }//GEN-LAST:event_deletePanelMouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel3MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Delete;
     private javax.swing.JTextField a;
     private javax.swing.JPanel addPanel;
     private javax.swing.JPanel add_panel;
@@ -406,7 +439,6 @@ public class Guest extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

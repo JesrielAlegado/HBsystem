@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package floatedPage;
 
-/**
- *
- * @author Mercy
- */
+import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+
+
 public class EditRoom extends javax.swing.JPanel {
 
     /**
@@ -28,10 +25,10 @@ public class EditRoom extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        Price = new javax.swing.JTextField();
+        RoomNumber = new javax.swing.JTextField();
+        RoomType = new javax.swing.JTextField();
+        BedNumber = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -46,17 +43,17 @@ public class EditRoom extends javax.swing.JPanel {
         jLabel1.setText("Edit Room");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 180, 30));
+        Price.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        add(Price, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 180, 30));
 
-        jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 180, 30));
+        RoomNumber.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        add(RoomNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 180, 30));
 
-        jTextField3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 180, 30));
+        RoomType.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        add(RoomType, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 180, 30));
 
-        jTextField4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 180, 30));
+        BedNumber.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        add(BedNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 180, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Price");
@@ -76,20 +73,109 @@ public class EditRoom extends javax.swing.JPanel {
 
         jButton1.setText("Submit");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, -1, -1));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, 60, 30));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+       String roomNumber = RoomNumber.getText().trim();
+String roomType = RoomType.getText().trim();
+String bedNumber = BedNumber.getText().trim();
+String priceText = Price.getText().trim();
+
+StringBuilder errorMsg = new StringBuilder();
+boolean hasError = false;
+
+// Reset borders (optional UI feedback)
+RoomNumber.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+RoomType.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+BedNumber.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+Price.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+
+// Validate Room Number
+if (roomNumber.isEmpty()) {
+    errorMsg.append("- Room Number cannot be empty.\n");
+    RoomNumber.setBorder(new LineBorder(Color.RED, 1));
+    hasError = true;
+} else if (!roomNumber.matches("\\d+")) {
+    errorMsg.append("- Room Number must be a number.\n");
+    RoomNumber.setBorder(new LineBorder(Color.RED, 1));
+    hasError = true;
+}
+
+// Validate Room Type
+if (roomType.isEmpty()) {
+    errorMsg.append("- Room Type cannot be empty.\n");
+    RoomType.setBorder(new LineBorder(Color.RED, 1));
+    hasError = true;
+}
+
+// Validate Bed Number
+if (bedNumber.isEmpty()) {
+    errorMsg.append("- Bed Number cannot be empty.\n");
+    BedNumber.setBorder(new LineBorder(Color.RED, 1));
+    hasError = true;
+} else if (!bedNumber.matches("\\d+")) {
+    errorMsg.append("- Bed Number must be a number.\n");
+    BedNumber.setBorder(new LineBorder(Color.RED, 1));
+    hasError = true;
+}
+
+// Validate Price
+if (priceText.isEmpty()) {
+    errorMsg.append("- Price cannot be empty.\n");
+    Price.setBorder(new LineBorder(Color.RED, 1));
+    hasError = true;
+} else {
+    try {
+        double price = Double.parseDouble(priceText);
+        if (price < 0) {
+            errorMsg.append("- Price cannot be negative.\n");
+            Price.setBorder(new LineBorder(Color.RED, 1));
+            hasError = true;
+        }
+    } catch (NumberFormatException e) {
+        errorMsg.append("- Price must be a valid number.\n");
+        Price.setBorder(new LineBorder(Color.RED, 1));
+        hasError = true;
+    }
+}
+
+// If there's any error, show message and stop
+if (hasError) {
+    JOptionPane.showMessageDialog(null, errorMsg.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+// ✅ If no errors, proceed to update in database
+// Example: updateRoom(roomNumber, roomType, bedNumber, priceText);
+
+    }//GEN-LAST:event_jButton1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JTextField BedNumber;
+    public javax.swing.JTextField Price;
+    public javax.swing.JTextField RoomNumber;
+    public javax.swing.JTextField RoomType;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    public javax.swing.JTextField jTextField1;
-    public javax.swing.JTextField jTextField2;
-    public javax.swing.JTextField jTextField3;
-    public javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

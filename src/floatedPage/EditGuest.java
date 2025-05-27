@@ -5,6 +5,11 @@
  */
 package floatedPage;
 
+import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+
 /**
  *
  * @author User
@@ -27,10 +32,10 @@ public class EditGuest extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        Address = new javax.swing.JTextField();
+        Contact = new javax.swing.JTextField();
+        FullName = new javax.swing.JTextField();
+        Email = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -42,17 +47,17 @@ public class EditGuest extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 170, 30));
+        Address.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        add(Address, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 170, 30));
 
-        jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 170, 30));
+        Contact.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        add(Contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 170, 30));
 
-        jTextField3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 170, 30));
+        FullName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        add(FullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 170, 30));
 
-        jTextField4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 170, 30));
+        Email.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        add(Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 170, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Edit Guest");
@@ -76,20 +81,90 @@ public class EditGuest extends javax.swing.JPanel {
 
         jButton1.setText("Submit");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, -1, -1));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 60, 20));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+      String fullName = FullName.getText().trim();
+String email = Email.getText().trim();
+String contact = Contact.getText().trim();
+String address = Address.getText().trim();
+
+StringBuilder errorMsg = new StringBuilder();
+boolean hasError = false;
+
+// Reset borders (for clean UI)
+FullName.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+Email.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+Contact.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+Address.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+
+// Validate Full Name
+if (fullName.isEmpty()) {
+    errorMsg.append("- Full Name cannot be empty.\n");
+    FullName.setBorder(new LineBorder(Color.RED, 1));
+    hasError = true;
+}
+
+// Validate Email
+if (email.isEmpty()) {
+    errorMsg.append("- Email cannot be empty.\n");
+    Email.setBorder(new LineBorder(Color.RED, 1));
+    hasError = true;
+} else {
+    String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    if (!email.matches(emailRegex)) {
+        errorMsg.append("- Invalid email format.\n");
+        Email.setBorder(new LineBorder(Color.RED, 1));
+        hasError = true;
+    }
+}
+
+// Validate Contact
+if (contact.isEmpty()) {
+    errorMsg.append("- Contact number cannot be empty.\n");
+    Contact.setBorder(new LineBorder(Color.RED, 1));
+    hasError = true;
+} else if (!contact.matches("\\d{7,15}")) {
+    errorMsg.append("- Contact number must be 7 to 15 digits.\n");
+    Contact.setBorder(new LineBorder(Color.RED, 1));
+    hasError = true;
+}
+
+// Validate Address
+if (address.isEmpty()) {
+    errorMsg.append("- Address cannot be empty.\n");
+    Address.setBorder(new LineBorder(Color.RED, 1));
+    hasError = true;
+}
+
+// Show error if any
+if (hasError) {
+    JOptionPane.showMessageDialog(null, errorMsg.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+// ✅ All fields are valid — proceed with update logic
+// Example: updateUser(fullName, email, contact, address);
+
+    }//GEN-LAST:event_jButton1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JTextField Address;
+    public javax.swing.JTextField Contact;
+    public javax.swing.JTextField Email;
+    public javax.swing.JTextField FullName;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    public javax.swing.JTextField jTextField1;
-    public javax.swing.JTextField jTextField2;
-    public javax.swing.JTextField jTextField3;
-    public javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }
