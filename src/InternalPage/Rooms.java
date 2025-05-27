@@ -6,11 +6,13 @@
 package InternalPage;
 
 import config.connectdb;
+import floatedPage.EditRoom;
 import floatedPage.addRoom;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
@@ -104,6 +106,9 @@ public class Rooms extends javax.swing.JInternalFrame {
 
         editPanel.setBackground(new java.awt.Color(51, 51, 51));
         editPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editPanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 editPanelMouseEntered(evt);
             }
@@ -143,6 +148,9 @@ public class Rooms extends javax.swing.JInternalFrame {
 
         deletePanel.setBackground(new java.awt.Color(51, 51, 51));
         deletePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deletePanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 deletePanelMouseEntered(evt);
             }
@@ -291,6 +299,31 @@ public class Rooms extends javax.swing.JInternalFrame {
 //        guest_tbl.setRowSorter(sorter);
 //        sorter.setRowFilter(RowFilter.regexFilter(search_bar.getText()));
     }//GEN-LAST:event_search_barKeyReleased
+
+    private void deletePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deletePanelMouseClicked
+        int selectedRow = room_tbl.getSelectedRow();
+        if (selectedRow != -1) {
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this row?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                DefaultTableModel model = (DefaultTableModel) room_tbl.getModel();
+                model.removeRow(selectedRow);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No row selected!");
+        }
+    }//GEN-LAST:event_deletePanelMouseClicked
+
+    private void editPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editPanelMouseClicked
+        EditRoom editPanel = new EditRoom(); // Panel for editing room details
+        JDialog dialog = new JDialog();
+
+        dialog.setTitle("Edit Room");
+        dialog.add(editPanel);
+        dialog.setSize(350, 450);
+        dialog.setLocationRelativeTo(null);
+        dialog.setModal(true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_editPanelMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
