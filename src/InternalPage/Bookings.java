@@ -76,8 +76,6 @@ public class Bookings extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         book_tbl = new javax.swing.JTable();
-        editPanel = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         refreshPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         deletePanel = new javax.swing.JPanel();
@@ -117,24 +115,6 @@ public class Bookings extends javax.swing.JInternalFrame {
 
         guest.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 570, 380));
 
-        editPanel.setBackground(new java.awt.Color(51, 51, 51));
-        editPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                editPanelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                editPanelMouseExited(evt);
-            }
-        });
-        editPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Edit");
-        editPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 8, -1, -1));
-
-        guest.add(editPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 100, 100, 30));
-
         refreshPanel.setBackground(new java.awt.Color(51, 51, 51));
         refreshPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -154,7 +134,7 @@ public class Bookings extends javax.swing.JInternalFrame {
         jLabel4.setText("Refresh");
         refreshPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 8, -1, -1));
 
-        guest.add(refreshPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 150, 100, 30));
+        guest.add(refreshPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 100, 100, 30));
 
         deletePanel.setBackground(new java.awt.Color(51, 51, 51));
         deletePanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -193,7 +173,7 @@ public class Bookings extends javax.swing.JInternalFrame {
         jLabel7.setText("Add Booking");
         addPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 8, -1, -1));
 
-        guest.add(addPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, 100, 30));
+        guest.add(addPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 150, 100, 30));
 
         search_bar.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         search_bar.setForeground(new java.awt.Color(153, 153, 153));
@@ -250,14 +230,6 @@ public class Bookings extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void editPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editPanelMouseEntered
-        editPanel.setBackground(bodycolor);
-    }//GEN-LAST:event_editPanelMouseEntered
-
-    private void editPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editPanelMouseExited
-        editPanel.setBackground(navcolor);
-    }//GEN-LAST:event_editPanelMouseExited
 
     private void refreshPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshPanelMouseClicked
 
@@ -391,11 +363,9 @@ if (rowIndex < 0) {
     private javax.swing.JPanel addPanel;
     private javax.swing.JTable book_tbl;
     private javax.swing.JPanel deletePanel;
-    private javax.swing.JPanel editPanel;
     private javax.swing.JPanel guest;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

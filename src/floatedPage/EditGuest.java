@@ -7,14 +7,14 @@ package floatedPage;
 
 /**
  *
- * @author Mercy
+ * @author User
  */
-public class EditRoom extends javax.swing.JPanel {
+public class EditGuest extends javax.swing.JPanel {
 
     /**
-     * Creates new form EditRoom
+     * Creates new form EditGuest
      */
-    public EditRoom() {
+    public EditGuest() {
         initComponents();
     }
 
@@ -27,11 +27,11 @@ public class EditRoom extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -42,41 +42,41 @@ public class EditRoom extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Edit Room");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
-
         jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 180, 30));
+        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 170, 30));
 
         jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 180, 30));
+        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 170, 30));
 
         jTextField3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 180, 30));
+        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 170, 30));
 
         jTextField4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 180, 30));
+        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 170, 30));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Edit Guest");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Price");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
+        jLabel2.setText("Address");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Room Number");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+        jLabel3.setText("Full name");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("Room Type");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+        jLabel4.setText("Email");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Bed Number");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
+        jLabel5.setText("Contact");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
 
         jButton1.setText("Submit");
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, -1, -1));
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 

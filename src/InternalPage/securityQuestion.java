@@ -55,16 +55,20 @@ public class securityQuestion extends javax.swing.JInternalFrame {
 
         question1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         question1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is the name of your favorite teacher?", "What is the title of your favorite book?", "What is your mother’s maiden name?" }));
+        question1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(question1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 280, 30));
 
         answerField1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        answerField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(answerField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 360, 40));
 
         question2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         question2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What was the name of your first pet?", "What is the name of the street you grew up on?", "What was your childhood best friend’s name?" }));
+        question2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(question2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 280, 30));
 
         answerField2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        answerField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(answerField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 360, 40));
 
         submit_button.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N

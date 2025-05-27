@@ -46,9 +46,11 @@ public class addRoom extends javax.swing.JPanel {
         Submit = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(102, 102, 102));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        pp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ppActionPerformed(evt);
@@ -56,6 +58,7 @@ public class addRoom extends javax.swing.JPanel {
         });
         add(pp, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 180, 30));
 
+        rn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         rn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rnActionPerformed(evt);
@@ -63,6 +66,7 @@ public class addRoom extends javax.swing.JPanel {
         });
         add(rn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 180, 30));
 
+        rt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         rt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rtActionPerformed(evt);
@@ -70,6 +74,7 @@ public class addRoom extends javax.swing.JPanel {
         });
         add(rt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 180, 30));
 
+        bn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         bn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bnActionPerformed(evt);
@@ -79,31 +84,28 @@ public class addRoom extends javax.swing.JPanel {
 
         des.setColumns(20);
         des.setRows(5);
+        des.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jScrollPane1.setViewportView(des);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 240, 190));
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Description");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, -1, -1));
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Room Number");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Room Type");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Bed Number");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Price");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
 
         Submit.setText("Submit");
+        Submit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SubmitActionPerformed(evt);
@@ -112,7 +114,6 @@ public class addRoom extends javax.swing.JPanel {
         add(Submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, 100, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Add Room");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 84, 40));
     }// </editor-fold>//GEN-END:initComponents
