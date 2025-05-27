@@ -3,6 +3,7 @@ package Dashboard;
 
 import InternalPage.Bookings;
 import InternalPage.Guest;
+import InternalPage.Profile;
 import InternalPage.Rooms;
 import InternalPage.Staff;
 import InternalPage.securityQuestion;
@@ -154,7 +155,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel7.setBackground(new java.awt.Color(0, 0, 0));
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Payment");
+        jLabel7.setText("Profile");
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel7MouseClicked(evt);
@@ -227,7 +228,8 @@ public class adminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        // TODO add your handling code here:
+        Profile pf = new Profile();
+        maindesktop.add(pf).setVisible(true);
     }//GEN-LAST:event_jLabel7MouseClicked
 
     public static void main(String args[]) {
