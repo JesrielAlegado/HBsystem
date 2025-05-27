@@ -5,6 +5,7 @@ import InternalPage.Bookings;
 import InternalPage.Guest;
 import InternalPage.Rooms;
 import InternalPage.Staff;
+import InternalPage.securityQuestion;
 import hotelbook.login;
 import javax.swing.JOptionPane;
 
@@ -142,13 +143,13 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel10.setBackground(new java.awt.Color(0, 0, 0));
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Guests");
+        jLabel10.setText("Security Question");
         jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel10MouseClicked(evt);
             }
         });
-        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 50, -1));
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 130, -1));
 
         jLabel7.setBackground(new java.awt.Color(0, 0, 0));
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -221,7 +222,8 @@ public class adminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_roomButtonMouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        // TODO add your handling code here:
+       securityQuestion sq = new securityQuestion();
+       maindesktop.add(sq).setVisible(true);
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked

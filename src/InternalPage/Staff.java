@@ -45,6 +45,7 @@ public class Staff extends javax.swing.JInternalFrame {
         editButton = new javax.swing.JButton();
 
         jPanel1.setMinimumSize(new java.awt.Dimension(540, 350));
+        jPanel1.setPreferredSize(new java.awt.Dimension(724, 447));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         users_tbl.setModel(new javax.swing.table.DefaultTableModel(
@@ -60,7 +61,7 @@ public class Staff extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(users_tbl);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 530, 290));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 700, 360));
 
         addButton.setText("Add User");
         addButton.addActionListener(new java.awt.event.ActionListener() {
@@ -68,7 +69,7 @@ public class Staff extends javax.swing.JInternalFrame {
                 addButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 310, -1, 30));
+        jPanel1.add(addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 400, -1, 30));
 
         Refresh.setText("Refresh");
         Refresh.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +77,7 @@ public class Staff extends javax.swing.JInternalFrame {
                 RefreshActionPerformed(evt);
             }
         });
-        jPanel1.add(Refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, 30));
+        jPanel1.add(Refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, -1, 30));
 
         deleteButton.setText("Delete User");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -84,7 +85,7 @@ public class Staff extends javax.swing.JInternalFrame {
                 deleteButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(deleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, -1, 30));
+        jPanel1.add(deleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 400, -1, 30));
 
         editButton.setText("Edit User");
         editButton.addActionListener(new java.awt.event.ActionListener() {
@@ -92,17 +93,17 @@ public class Staff extends javax.swing.JInternalFrame {
                 editButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 310, -1, 30));
+        jPanel1.add(editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 400, -1, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

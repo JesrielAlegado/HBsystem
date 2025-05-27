@@ -1,5 +1,16 @@
 package hotelbook;
 
+import config.Session;
+import config.bookingSession;
+import config.connectdb;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 
 public class SecurityQestion extends javax.swing.JFrame {
 
@@ -16,16 +27,15 @@ public class SecurityQestion extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
+        question1 = new javax.swing.JComboBox<>();
+        answerfield2 = new javax.swing.JTextField();
+        question2 = new javax.swing.JComboBox<>();
+        answerfield1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        Confirm = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -38,29 +48,29 @@ public class SecurityQestion extends javax.swing.JFrame {
         jLabel2.setText("Answer your security question to reset your password!");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is the name of you father?", "What is the title of your favorite movie?", "What is your mother’s maiden name?" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        question1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is the name of your favorite teacher?", "What is the title of your favorite book?", "What is your mother’s maiden name?" }));
+        question1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        question1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                question1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 340, -1));
+        jPanel2.add(question1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 340, -1));
 
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 340, 30));
+        answerfield2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.add(answerfield2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 340, 30));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is the name of you favorite sports?", "What is the title of your favorite song?", "What is your favorite place?" }));
-        jComboBox2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        question2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What was the name of your first pet?", "What is the name of the street you grew up on?", "What was your childhood best friend’s name?" }));
+        question2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        question2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                question2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 340, -1));
+        jPanel2.add(question2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 340, -1));
 
-        jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 340, 30));
+        answerfield1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.add(answerfield1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 340, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 410, 250));
 
@@ -77,28 +87,33 @@ public class SecurityQestion extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 50, -1));
 
-        jButton2.setText("Confirm");
-        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        Confirm.setText("Confirm");
+        Confirm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Confirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                ConfirmActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 310, 50, 20));
+        jPanel1.add(Confirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 310, 50, 20));
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 460, 366);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void question2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_question2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_question2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        ForgetPassword fp = new ForgetPassword();
@@ -106,10 +121,73 @@ public class SecurityQestion extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void ConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmActionPerformed
+        // Retrieve user details from session
+        Session sess = Session.getInstance();
+        String userId = sess.getUser_id();  // Get user_id from session
 
+        if (userId == null || userId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Session expired. Please search for your account again.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String selectedQuestion1 = question1.getSelectedItem().toString(); 
+        String selectedQuestion2 = question2.getSelectedItem().toString();
+        String userAnswer1 = answerfield1.getText().trim(); 
+        String userAnswer2 = answerfield2.getText().trim(); 
+
+        if (userAnswer1.isEmpty() || userAnswer2.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter both answers.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            // Database connection
+            connectdb con = new connectdb();
+            Connection connection = con.getConnection();
+
+            // Fetch security questions and answers using user_id from session
+            String query = "SELECT question, answer FROM securityquestion WHERE user_id = ? AND question IN (?, ?)";
+            PreparedStatement pst = connection.prepareStatement(query);
+            pst.setString(1, userId);  // Using user_id from session
+            pst.setString(2, selectedQuestion1);
+            pst.setString(3, selectedQuestion2);
+            ResultSet rs = pst.executeQuery();
+
+            int correctAnswers = 0;
+
+            while (rs.next()) {
+                String storedQuestion = rs.getString("question").trim();
+                String correctAnswer = rs.getString("answer").trim(); 
+
+                if (storedQuestion.equals(selectedQuestion1) && correctAnswer.equalsIgnoreCase(userAnswer1.trim())) {
+                    correctAnswers++;
+                } else if (storedQuestion.equals(selectedQuestion2) && correctAnswer.equalsIgnoreCase(userAnswer2.trim())) {
+                    correctAnswers++;
+                }
+            }
+
+            if (correctAnswers == 2) {
+                JOptionPane.showMessageDialog(this, "Answers verified! Proceed to reset password.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                new ResetPassword().setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Incorrect answer(s). Try again.", "Verification Failed", JOptionPane.ERROR_MESSAGE);
+            }
+
+            rs.close();
+            pst.close();
+            connection.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_ConfirmActionPerformed
+
+    private void question1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_question1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_question1ActionPerformed
+     
+      
     /**
      * @param args the command line arguments
      */
@@ -146,15 +224,15 @@ public class SecurityQestion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Confirm;
+    private javax.swing.JTextField answerfield1;
+    private javax.swing.JTextField answerfield2;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JComboBox<String> question1;
+    private javax.swing.JComboBox<String> question2;
     // End of variables declaration//GEN-END:variables
 }

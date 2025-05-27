@@ -8,6 +8,7 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
+  import config.passwordHasher;
 
 public class register extends javax.swing.JFrame {
 
@@ -243,117 +244,121 @@ public class register extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void confirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_confirmMouseClicked
-            String firstname = fname.getText();
-            String lastname = lname.getText();
-            String username = uname.getText();
-            String u_email = email.getText();
-            String con = contact.getText();
-            String pass = password.getText();
-            String cpass = confirm_pass.getText();
-        
-        
-        JComponent[] fields = {fname, lname,uname, email, contact, password, confirm_pass};
-        for(JComponent field : fields){
-            field.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));            
-        }
-
-            boolean Error = false;
-            StringBuilder eMsg = new StringBuilder();
-            
-            if(firstname.isEmpty()){
-                eMsg.append("- First name field cannot be empty!\n");
-                fname.setBorder(new LineBorder(Color.RED, 1));
-                Error = true;
-            }
-            
-            if(lastname.isEmpty()){
-                eMsg.append("- Last name field cannot be empty!\n");
-                lname.setBorder(new LineBorder(Color.RED, 1));
-                Error = true;
-            }
-            
-            if(username.isEmpty()){
-                eMsg.append("- Username field cannot be empty!\n");
-                uname.setBorder(new LineBorder(Color.RED, 1));
-                Error = true;
-            }
-            
-            if(u_email.isEmpty()){
-                eMsg.append("- Username field cannot be empty!\n");
-                email.setBorder(new LineBorder(Color.RED, 1));
-                Error = true;
-            }
-            
-            if(con.isEmpty()){
-                eMsg.append("- Email field cannot be empty!\n");
-                contact.setBorder(new LineBorder(Color.RED, 1));
-                Error = true;
-            }
-            
-            if(pass.isEmpty()){
-                eMsg.append("- Create password field cannot be empty!\n");
-                password.setBorder(new LineBorder(Color.RED, 1));
-                Error = true;
-            }
-            
-            if(cpass.isEmpty()){
-                eMsg.append("- Confirm password field cannot be empty!\n");
-                confirm_pass.setBorder(new LineBorder(Color.RED, 1));
-                Error = true;
-            }
-        
-            if (Error) {
-            JOptionPane.showMessageDialog(null, eMsg.toString(), "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-            }  
-            
-            
-            // Validate email format
-            String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-                
-            if (!u_email.matches(emailRegex)) {
-               JOptionPane.showMessageDialog(null, "Invalid email format!", "Error", JOptionPane.ERROR_MESSAGE);
-               email.setBorder(new LineBorder(Color.RED, 1));
-               return;
-               } 
-               
-            // Validate password match
-           if (!password.getText().equals(confirm_pass.getText())) {
-                JOptionPane.showMessageDialog(null, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
-                password.setBorder(new LineBorder(Color.RED, 1));
-                confirm_pass.setBorder(new LineBorder(Color.RED, 1));
-                return;
-            } 
-                // Validate password strength
           
-                pass = password.getText();
-                String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$";
 
-            if (!pass.matches(passwordRegex)) {
-                JOptionPane.showMessageDialog(null, "Password must be at least 8 characters and include:\n- One uppercase letter\n- One lowercase letter\n- One number\n- One special character (@#$%^&+=!)", 
-                                              "Error", JOptionPane.ERROR_MESSAGE);
-                password.setBorder(new LineBorder(Color.RED, 1));
-                return;
-               } 
-                // Insert into database
-                connectdb cn = new connectdb();
 
-                int result = cn.InsertData("INSERT INTO staff (first_name, last_name, username, email, contact , role, password) "
-                       + "VALUES('"+fname.getText()+"',"
-                               + "'"+lname.getText()+"',"
-                               + "'"+uname.getText()+"',"
-                               + "'"+email.getText()+"',"
-                               + "'"+contact.getText()+"',"
-                               + "'"+role.getSelectedItem()+"',"
-                               + "'"+password.getText()+"')");
-                   if (result == 1) {
-                       JOptionPane.showMessageDialog(null, "Inserted Successfully!");
-                       new login().setVisible(true);
-                       this.dispose();
-                   } 
-                   else {
-                       JOptionPane.showMessageDialog(null, "Registration failed. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-                   }
+try {
+    String firstname = fname.getText();
+    String lastname = lname.getText();
+    String username = uname.getText();
+    String u_email = email.getText();
+    String con = contact.getText();
+    String pass = password.getText();
+    String cpass = confirm_pass.getText();
+
+    JComponent[] fields = {fname, lname, uname, email, contact, password, confirm_pass};
+    for (JComponent field : fields) {
+        field.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+    }
+
+    boolean Error = false;
+    StringBuilder eMsg = new StringBuilder();
+
+    if (firstname.isEmpty()) {
+        eMsg.append("- First name field cannot be empty!\n");
+        fname.setBorder(new LineBorder(Color.RED, 1));
+        Error = true;
+    }
+    if (lastname.isEmpty()) {
+        eMsg.append("- Last name field cannot be empty!\n");
+        lname.setBorder(new LineBorder(Color.RED, 1));
+        Error = true;
+    }
+    if (username.isEmpty()) {
+        eMsg.append("- Username field cannot be empty!\n");
+        uname.setBorder(new LineBorder(Color.RED, 1));
+        Error = true;
+    }
+    if (u_email.isEmpty()) {
+        eMsg.append("- Email field cannot be empty!\n");
+        email.setBorder(new LineBorder(Color.RED, 1));
+        Error = true;
+    }
+    if (con.isEmpty()) {
+        eMsg.append("- Contact field cannot be empty!\n");
+        contact.setBorder(new LineBorder(Color.RED, 1));
+        Error = true;
+    }
+    if (pass.isEmpty()) {
+        eMsg.append("- Create password field cannot be empty!\n");
+        password.setBorder(new LineBorder(Color.RED, 1));
+        Error = true;
+    }
+    if (cpass.isEmpty()) {
+        eMsg.append("- Confirm password field cannot be empty!\n");
+        confirm_pass.setBorder(new LineBorder(Color.RED, 1));
+        Error = true;
+    }
+
+    if (Error) {
+        JOptionPane.showMessageDialog(null, eMsg.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Validate email
+    String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    if (!u_email.matches(emailRegex)) {
+        JOptionPane.showMessageDialog(null, "Invalid email format!", "Error", JOptionPane.ERROR_MESSAGE);
+        email.setBorder(new LineBorder(Color.RED, 1));
+        return;
+    }
+
+    // Check password match
+    if (!pass.equals(cpass)) {
+        JOptionPane.showMessageDialog(null, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
+        password.setBorder(new LineBorder(Color.RED, 1));
+        confirm_pass.setBorder(new LineBorder(Color.RED, 1));
+        return;
+    }
+
+    // Check password strength
+    String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$";
+    if (!pass.matches(passwordRegex)) {
+        JOptionPane.showMessageDialog(null, "Password must be at least 8 characters and include:\n- One uppercase letter\n- One lowercase letter\n- One number\n- One special character (@#$%^&+=!)",
+                                      "Error", JOptionPane.ERROR_MESSAGE);
+        password.setBorder(new LineBorder(Color.RED, 1));
+        return;
+    }
+
+    // Hash the password
+    String hashedPassword = passwordHasher.hashPassword(pass);
+
+    // Insert into database
+    connectdb cn = new connectdb();
+    int result = cn.InsertData("INSERT INTO staff (first_name, last_name, username, email, contact, role, password, status) "
+            + "VALUES('" + firstname + "',"
+            + "'" + lastname + "',"
+            + "'" + username + "',"
+            + "'" + u_email + "',"
+            + "'" + con + "',"
+            + "'" + role.getSelectedItem() + "',"
+            + "'" + hashedPassword + "',"
+            + "'pending')");
+
+    if (result == 1) {
+        JOptionPane.showMessageDialog(null, "Inserted Successfully!");
+        new login().setVisible(true);
+        this.dispose();
+    } else {
+        JOptionPane.showMessageDialog(null, "Registration failed. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Exception", JOptionPane.ERROR_MESSAGE);
+    e.printStackTrace();
+}
+
+
     }//GEN-LAST:event_confirmMouseClicked
 
     private void roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleActionPerformed

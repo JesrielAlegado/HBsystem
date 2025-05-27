@@ -3,18 +3,77 @@ package hotelbook;
 
 import Dashboard.adminDashboard;
 import Dashboard.staffDashboard;
+import config.Session;
 import config.connectdb;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import config.passwordHasher; // Ensure this import is at the top
 
 public class login extends javax.swing.JFrame {
 
     public login() {
         initComponents();
     }
+
+    static String status;
+static String type;
+
+
+
+public static boolean loginAcc(String username, String password) {
+    connectdb con = new connectdb();
+
+    try {
+        // Use PreparedStatement to prevent SQL injection
+        String query = "SELECT * FROM staff WHERE username = ?";
+        PreparedStatement pst = con.getConnection().prepareStatement(query);
+        pst.setString(1, username);
+        ResultSet resultSet = pst.executeQuery();
+
+        if (resultSet.next()) {
+            String dbPassword = resultSet.getString("password");
+            status = resultSet.getString("status");
+
+            // ✅ Check if account is approved
+            if (!"Approved".equalsIgnoreCase(status)) {
+                JOptionPane.showMessageDialog(null, "Your account is not approved yet.", "Login Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
+            // ✅ Verify password using hasher
+            if (passwordHasher.verifyPassword(password, dbPassword)) {
+                type = resultSet.getString("role");
+
+                // ✅ Set up session
+                Session sess = Session.getInstance();
+                sess.setUser_id(resultSet.getString("ID"));
+                sess.setF_name(resultSet.getString("first_name"));
+                sess.setL_name(resultSet.getString("last_name"));
+                sess.setUsername(resultSet.getString("username"));
+                sess.setEmail(resultSet.getString("email"));
+                sess.setRole(resultSet.getString("role"));
+                sess.setStatus(resultSet.getString("status"));
+
+                return true;
+            } else {
+                // Invalid password
+                return false;
+            }
+        } else {
+            // No user found
+            return false;
+        }
+    } catch (Exception ex) {
+        ex.printStackTrace(); // For debugging
+        return false;
+    }
+}
+
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -64,6 +123,11 @@ public class login extends javax.swing.JFrame {
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
@@ -128,56 +192,25 @@ public class login extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         String user = username.getText();
         String pass = new String(password.getPassword());
-        
 
         if (user.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter both username and password.", "Login Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        connectdb conf = new connectdb(); // Create an instance of dbConnector
-        Connection con = conf.getConnection(); // Get connection
+        if (login.loginAcc(user, pass)) { // Replace 'yourClassName' with the class that contains loginAcc
+            JOptionPane.showMessageDialog(this, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-        String sql = "SELECT password, role FROM staff WHERE username = ?";
-
-        try {
-            PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, user);
-            ResultSet rs = pst.executeQuery();
-
-            if (rs.next()) {
-                String storedPassword = rs.getString("password");
-                String roleFromDB = rs.getString("role");
-
-                if (storedPassword.equals(pass)) { // Ensure proper hashing if applicable
-                    if (roleFromDB.equalsIgnoreCase(roleFromDB)) { 
-                        JOptionPane.showMessageDialog(this, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-                        // Redirect based on role
-                        if ("Admin".equalsIgnoreCase(roleFromDB)) {
-                            adminDashboard admin = new adminDashboard();
-                            admin.setVisible(true);
-                        } else if ("Staff".equalsIgnoreCase(roleFromDB)) {
-                            staffDashboard staff = new staffDashboard();
-                            staff.setVisible(true);
-                        }
-
-                        this.dispose(); // Close login form
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Incorrect role selection!", "Login Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Invalid username or password.", "Login Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid username or password.", "Login Error", JOptionPane.ERROR_MESSAGE);
+            // Redirect based on role
+            if ("Admin".equalsIgnoreCase(login.type)) {
+                new adminDashboard().setVisible(true);
+            } else if ("Staff".equalsIgnoreCase(login.type)) {
+                new staffDashboard().setVisible(true);
             }
 
-            rs.close();
-            pst.close();
-            con.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            this.dispose(); // Close login form
+        } else {
+            JOptionPane.showMessageDialog(this, "Account not approved or credentials incorrect.", "Login Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -186,8 +219,14 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void ForgetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ForgetPasswordMouseClicked
-        // TODO add your handling code here:
+        ForgetPassword fp = new ForgetPassword();
+        fp.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ForgetPasswordMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
