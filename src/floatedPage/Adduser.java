@@ -42,7 +42,7 @@ public class Adduser extends javax.swing.JPanel {
         role = new javax.swing.JComboBox<>();
         save = new javax.swing.JButton();
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

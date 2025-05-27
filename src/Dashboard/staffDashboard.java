@@ -4,6 +4,8 @@ import InternalPage.Bookings;
 import InternalPage.Guest;
 import InternalPage.Rooms;
 import InternalPage.Staff;
+import hotelbook.login;
+import javax.swing.JOptionPane;
 
 
 public class staffDashboard extends javax.swing.JFrame {
@@ -29,6 +31,7 @@ public class staffDashboard extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        Logout = new javax.swing.JButton();
         maindesktop = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -103,6 +106,19 @@ public class staffDashboard extends javax.swing.JFrame {
         });
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
+        Logout.setText("Logout");
+        Logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LogoutMouseClicked(evt);
+            }
+        });
+        Logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogoutActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
+
         jPanel1.add(jPanel3);
         jPanel3.setBounds(0, 40, 140, 420);
 
@@ -155,6 +171,18 @@ public class staffDashboard extends javax.swing.JFrame {
         maindesktop.add(book).setVisible(true);
     }//GEN-LAST:event_jLabel6MouseClicked
 
+    private void LogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutMouseClicked
+      new login().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_LogoutMouseClicked
+
+    private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
+       login login = new login();
+        JOptionPane.showMessageDialog(null, "Logging out", "Log", JOptionPane.INFORMATION_MESSAGE);
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_LogoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -191,6 +219,7 @@ public class staffDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Logout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
