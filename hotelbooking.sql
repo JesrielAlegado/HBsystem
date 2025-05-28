@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2025 at 02:42 PM
+-- Generation Time: May 28, 2025 at 02:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -148,22 +148,24 @@ CREATE TABLE `staff` (
   `contact` varchar(255) NOT NULL,
   `email` varchar(50) NOT NULL,
   `role` varchar(20) NOT NULL,
-  `status` varchar(20) NOT NULL
+  `status` varchar(20) NOT NULL,
+  `profile_pic` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`ID`, `first_name`, `last_name`, `username`, `password`, `contact`, `email`, `role`, `status`) VALUES
-(1, 'qwe', 'qwe', 'assa', 'John123#', '09123438251', 'John@gmail.com', 'Admin', ''),
-(2, 'John Phil', 'Esconde', 'johnphil', 'John123#', 'John123#', 'johnphil@gmail.com', 'Users', ''),
-(3, 'queny', 'waskin', 'queny', 'Queny123#', '0931349241', 'queny@gmail.com', 'Users', ''),
-(4, 'test', 'test', 'admin', '12345', 'test', 'test@gmail.com', 'Admin', ''),
-(5, 'hasha', 'asas', 'wahhh', 'John1234!', 'sasasa', 'test@gmail.com', 'Admin', ''),
-(6, 'asa', 'asa', 'staff', 'John123!', 'asasas', 'asasa@gmail.com', 'Staff', ''),
-(7, 'test', 'test', 'test', '12345678', '0987654321', 'john@gmail.com', 'Admin', 'Approved'),
-(8, 'mikay', 'sabal', 'mikay', 'g2Pzb4B0nAQHmIYJeq1tXCJllicia/RroE5aQuZTJTY=', '0987654321', 'mikay@gmail.com', 'Admin', 'Approved');
+INSERT INTO `staff` (`ID`, `first_name`, `last_name`, `username`, `password`, `contact`, `email`, `role`, `status`, `profile_pic`) VALUES
+(1, 'qwe', 'qwe', 'assa', 'John123#', '09123438251', 'John@gmail.com', 'Admin', '', NULL),
+(2, 'John Phil', 'Esconde', 'johnphil', 'John123#', 'John123#', 'johnphil@gmail.com', 'Users', '', NULL),
+(3, 'queny', 'waskin', 'queny', 'Queny123#', '0931349241', 'queny@gmail.com', 'Users', '', NULL),
+(4, 'test', 'test', 'admin', '12345', 'test', 'test@gmail.com', 'Admin', '', NULL),
+(5, 'hasha', 'asas', 'wahhh', 'John1234!', 'sasasa', 'test@gmail.com', 'Admin', '', NULL),
+(6, 'asa', 'asa', 'staff', 'John123!', 'asasas', 'asasa@gmail.com', 'Staff', '', NULL),
+(7, 'test', 'test', 'test', '12345678', '0987654321', 'john@gmail.com', 'Admin', 'Approved', NULL),
+(8, 'mikay', 'sabal', 'mikay', 'g2Pzb4B0nAQHmIYJeq1tXCJllicia/RroE5aQuZTJTY=', '0987654321', 'mikay@gmail.com', 'Admin', 'Approved', NULL),
+(9, 'John Phil', 'Esconde', 'jampil', 'INj/IVC0FLy/cW1LGVRCKp3MG5CsH28ZUd3F3GJYbzQ=', '09198996251', 'john@gmail.com', 'Admin', 'Approved', 'Ferdinand_E_Marcos.jpg');
 
 -- --------------------------------------------------------
 
@@ -272,7 +274,7 @@ ALTER TABLE `securityquestion`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`
