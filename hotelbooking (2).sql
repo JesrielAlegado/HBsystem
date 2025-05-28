@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2025 at 02:31 AM
+-- Generation Time: May 28, 2025 at 10:21 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,7 +45,8 @@ CREATE TABLE `booking` (
 
 INSERT INTO `booking` (`booking_id`, `guest_id`, `room_id`, `check_in`, `check_out`, `nights`, `price_per_night`, `total_price`, `status`) VALUES
 (1, 2, 1, '2024-05-23', '2024-05-25', 2, 2000.00, 4000.00, 'Confirmed'),
-(2, 3, 1, '2024-05-27', '2024-05-29', 2, 2000.00, 4000.00, 'Confirmed');
+(2, 3, 1, '2024-05-27', '2024-05-29', 2, 2000.00, 4000.00, 'Confirmed'),
+(3, 8, 1, '2025-05-28', '2025-05-31', 3, 2000.00, 6000.00, 'Confirmed');
 
 -- --------------------------------------------------------
 
@@ -70,7 +71,33 @@ INSERT INTO `guest` (`guest_id`, `full_name`, `contact_number`, `email`, `addres
 (1, 'John Phil Esconde', '09198996251', 'kohn@gmail.com', 'Candiis, Badian,Cebu', '2025-05-21 07:02:34'),
 (2, 'John Phil Esconde', '09198996251', 'kohn@gmail.com', 'Candiis, Badian,Cebu', '2025-05-21 07:02:41'),
 (3, 'john pada', '09897867546', 'john@gmail.com', 'vsdjihsdf', '2025-05-21 07:07:50'),
-(4, 'asas', '09089988923', 'asasa@gamil.com', 'asasas', '2025-05-27 06:28:53');
+(4, 'asas', '09089988923', 'asasa@gamil.com', 'asasas', '2025-05-27 06:28:53'),
+(5, 'John Phil Esconde', '09123456789', 'kohn@gmail.com', 'Candiis, Badian,Cebu', '2025-05-28 07:53:48'),
+(6, 'John Phil', '09198996251', 'kohn@gmail.com', 'Candiis, Badian,Cebu', '2025-05-28 07:54:10'),
+(7, 'John Micole', '09123456789', 'micole@gmail.com', 'tinaan, Naga, Cebu', '2025-05-28 08:08:25'),
+(8, 'Diana Jane Alegado', '09876543211', 'diana@gmail.com', 'Ward III, Minglanilla, Cebu', '2025-05-28 08:10:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logs`
+--
+
+CREATE TABLE `logs` (
+  `log_id` int(11) NOT NULL,
+  `ID` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `action` varchar(255) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`log_id`, `ID`, `username`, `action`, `date`) VALUES
+(2, 6, 'mikay', 'delete booking', '2025-05-28 03:59:25'),
+(3, 11, 'Jane', 'Check-Out', '2025-05-28 08:19:09');
 
 -- --------------------------------------------------------
 
@@ -131,7 +158,9 @@ CREATE TABLE `securityquestion` (
 
 INSERT INTO `securityquestion` (`id`, `user_id`, `question`, `answer`) VALUES
 (1, 7, 'What is the name of your favorite teacher?', 'mike'),
-(2, 7, 'What was the name of your first pet?', 'john');
+(2, 7, 'What was the name of your first pet?', 'john'),
+(3, 11, 'What is your mother’s maiden name?', 'Sellote'),
+(4, 11, 'What is the name of the street you grew up on?', 'Ward3');
 
 -- --------------------------------------------------------
 
@@ -164,8 +193,27 @@ INSERT INTO `staff` (`ID`, `first_name`, `last_name`, `username`, `password`, `c
 (5, 'hasha', 'asas', 'wahhh', 'John1234!', 'sasasa', 'test@gmail.com', 'Admin', '', NULL),
 (6, 'asa', 'asa', 'staff', 'John123!', 'asasas', 'asasa@gmail.com', 'Staff', '', NULL),
 (7, 'test', 'test', 'test', '12345678', '0987654321', 'john@gmail.com', 'Admin', 'Approved', NULL),
-(8, 'mikay', 'sabal', 'mikay', 'g2Pzb4B0nAQHmIYJeq1tXCJllicia/RroE5aQuZTJTY=', '0987654321', 'mikay@gmail.com', 'Admin', 'Approved', NULL),
-(9, 'John Phil', 'Esconde', 'jampil', 'INj/IVC0FLy/cW1LGVRCKp3MG5CsH28ZUd3F3GJYbzQ=', '09198996251', 'john@gmail.com', 'Admin', 'Approved', 'Ferdinand_E_Marcos.jpg');
+(8, 'mikay', 'sabal', 'mikay', 'g2Pzb4B0nAQHmIYJeq1tXCJllicia/RroE5aQuZTJTY=', '0987654321', 'mikay@gmail.com', 'Admin', 'Approved', 'jesriel.jpg'),
+(9, 'John Phil', 'Esconde', 'jampil', 'INj/IVC0FLy/cW1LGVRCKp3MG5CsH28ZUd3F3GJYbzQ=', '09198996251', 'john@gmail.com', 'Admin', 'Approved', 'Ferdinand_E_Marcos.jpg'),
+(10, 'Angel', 'Sabal', 'angel', 'qJcqllbJkHIjnz8ZUsuoa+Lc5mU7/jCOXbeA0eWDBtA=', '09876543213', 'angel@gmail.com', 'Admin', 'Approved', 'ss.jpg'),
+(11, 'Jane', 'Alegado', 'jane', 'dkHMjjt1rrWKFy4aPkpISjNK7HErMGHr/9zE3HZnV0E=', '09876543213', 'jane@gmail.com', 'Admin', 'Approved', 'ssa.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `full_name` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `role` varchar(20) DEFAULT 'guest',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -203,6 +251,13 @@ ALTER TABLE `guest`
   ADD PRIMARY KEY (`guest_id`);
 
 --
+-- Indexes for table `logs`
+--
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`log_id`),
+  ADD KEY `ID` (`ID`);
+
+--
 -- Indexes for table `payment`
 --
 ALTER TABLE `payment`
@@ -230,6 +285,13 @@ ALTER TABLE `staff`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -244,13 +306,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
-  MODIFY `guest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `guest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `logs`
+--
+ALTER TABLE `logs`
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -268,13 +336,19 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `securityquestion`
 --
 ALTER TABLE `securityquestion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -292,6 +366,12 @@ ALTER TABLE `users`
 ALTER TABLE `booking`
   ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`guest_id`) REFERENCES `guest` (`guest_id`),
   ADD CONSTRAINT `booking_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`);
+
+--
+-- Constraints for table `logs`
+--
+ALTER TABLE `logs`
+  ADD CONSTRAINT `ID` FOREIGN KEY (`ID`) REFERENCES `staff` (`ID`);
 
 --
 -- Constraints for table `payment`

@@ -138,6 +138,9 @@ public class Bookings extends javax.swing.JInternalFrame {
 
         deletePanel.setBackground(new java.awt.Color(51, 51, 51));
         deletePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deletePanelMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 deletePanelMouseEntered(evt);
             }
@@ -232,7 +235,7 @@ public class Bookings extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void refreshPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshPanelMouseClicked
-
+    displayData();
     }//GEN-LAST:event_refreshPanelMouseClicked
 
     private void refreshPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshPanelMouseEntered
@@ -357,6 +360,19 @@ if (rowIndex < 0) {
 }
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void deletePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deletePanelMouseClicked
+       int selectedRow = book_tbl.getSelectedRow();
+        if (selectedRow != -1) {
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this row?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                DefaultTableModel model = (DefaultTableModel) book_tbl.getModel();
+                model.removeRow(selectedRow);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No row selected!");
+        }         
+    }//GEN-LAST:event_deletePanelMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

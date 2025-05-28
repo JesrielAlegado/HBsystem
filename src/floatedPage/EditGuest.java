@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package floatedPage;
 
+import config.connectdb;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -15,12 +11,40 @@ import javax.swing.border.LineBorder;
  * @author User
  */
 public class EditGuest extends javax.swing.JPanel {
+private int guestId = -1; // track which guest is being edited
 
-    /**
-     * Creates new form EditGuest
-     */
     public EditGuest() {
         initComponents();
+    }
+
+    // Call this method to load data for the guest to be edited
+    public void loadGuestData(int id) {
+        this.guestId = id;  // Save guest ID
+    
+    String sql = "SELECT full_name, email, contact_number, address FROM guest WHERE id = ?";
+    try {
+        connectdb dbc = new connectdb();
+        java.sql.Connection conn = dbc.getConnection();
+        java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+        pst.setInt(1, id);
+        java.sql.ResultSet rs = pst.executeQuery();
+        
+        if (rs.next()) {
+            FullName.setText(rs.getString("full_name"));
+            Email.setText(rs.getString("email"));
+            Contact.setText(rs.getString("contact_number"));
+            Address.setText(rs.getString("address"));
+        } else {
+            JOptionPane.showMessageDialog(null, "Guest not found with ID: " + id);
+        }
+        
+        rs.close();
+        pst.close();
+        conn.close();
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }
 
     /**
@@ -41,7 +65,7 @@ public class EditGuest extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        Submit = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -79,80 +103,109 @@ public class EditGuest extends javax.swing.JPanel {
         jLabel5.setText("Contact");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
 
-        jButton1.setText("Submit");
-        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        Submit.setText("Submit");
+        Submit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        Submit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                SubmitMouseClicked(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 60, 20));
+        add(Submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 60, 20));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-      String fullName = FullName.getText().trim();
-String email = Email.getText().trim();
-String contact = Contact.getText().trim();
-String address = Address.getText().trim();
+    private void SubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubmitMouseClicked
+    String fullName = FullName.getText().trim();
+        String email = Email.getText().trim();
+        String contact = Contact.getText().trim();
+        String address = Address.getText().trim();
 
-StringBuilder errorMsg = new StringBuilder();
-boolean hasError = false;
+        StringBuilder errorMsg = new StringBuilder();
+        boolean hasError = false;
 
-// Reset borders (for clean UI)
-FullName.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-Email.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-Contact.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-Address.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        // Reset borders (for clean UI)
+        FullName.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        Email.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        Contact.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+        Address.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
 
-// Validate Full Name
-if (fullName.isEmpty()) {
-    errorMsg.append("- Full Name cannot be empty.\n");
-    FullName.setBorder(new LineBorder(Color.RED, 1));
-    hasError = true;
-}
+        // Validate Full Name
+        if (fullName.isEmpty()) {
+            errorMsg.append("- Full Name cannot be empty.\n");
+            FullName.setBorder(new LineBorder(Color.RED, 1));
+            hasError = true;
+        }
 
-// Validate Email
-if (email.isEmpty()) {
-    errorMsg.append("- Email cannot be empty.\n");
-    Email.setBorder(new LineBorder(Color.RED, 1));
-    hasError = true;
-} else {
-    String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-    if (!email.matches(emailRegex)) {
-        errorMsg.append("- Invalid email format.\n");
-        Email.setBorder(new LineBorder(Color.RED, 1));
-        hasError = true;
+        // Validate Email
+        if (email.isEmpty()) {
+            errorMsg.append("- Email cannot be empty.\n");
+            Email.setBorder(new LineBorder(Color.RED, 1));
+            hasError = true;
+        } else {
+            String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+            if (!email.matches(emailRegex)) {
+                errorMsg.append("- Invalid email format.\n");
+                Email.setBorder(new LineBorder(Color.RED, 1));
+                hasError = true;
+            }
+        }
+
+        // Validate Contact
+        if (contact.isEmpty()) {
+            errorMsg.append("- Contact number cannot be empty.\n");
+            Contact.setBorder(new LineBorder(Color.RED, 1));
+            hasError = true;
+        } else if (!contact.matches("\\d{7,15}")) {
+            errorMsg.append("- Contact number must be 7 to 15 digits.\n");
+            Contact.setBorder(new LineBorder(Color.RED, 1));
+            hasError = true;
+        }
+
+        // Validate Address
+        if (address.isEmpty()) {
+            errorMsg.append("- Address cannot be empty.\n");
+            Address.setBorder(new LineBorder(Color.RED, 1));
+            hasError = true;
+        }
+
+        if (hasError) {
+            JOptionPane.showMessageDialog(null, errorMsg.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (guestId == -1) {
+        JOptionPane.showMessageDialog(null, "No guest selected for editing.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
     }
-}
 
-// Validate Contact
-if (contact.isEmpty()) {
-    errorMsg.append("- Contact number cannot be empty.\n");
-    Contact.setBorder(new LineBorder(Color.RED, 1));
-    hasError = true;
-} else if (!contact.matches("\\d{7,15}")) {
-    errorMsg.append("- Contact number must be 7 to 15 digits.\n");
-    Contact.setBorder(new LineBorder(Color.RED, 1));
-    hasError = true;
-}
+        String sql = "UPDATE guest SET full_name = ?, email = ?, contact_number = ?, address = ? WHERE id = ?";
 
-// Validate Address
-if (address.isEmpty()) {
-    errorMsg.append("- Address cannot be empty.\n");
-    Address.setBorder(new LineBorder(Color.RED, 1));
-    hasError = true;
-}
+        try {
+            connectdb dbc = new connectdb();
+            java.sql.Connection conn = dbc.getConnection();
+            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
 
-// Show error if any
-if (hasError) {
-    JOptionPane.showMessageDialog(null, errorMsg.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
+            pst.setString(1, fullName);
+            pst.setString(2, email);
+            pst.setString(3, contact);
+            pst.setString(4, address);
+            pst.setInt(5, guestId);
 
-// ✅ All fields are valid — proceed with update logic
-// Example: updateUser(fullName, email, contact, address);
+            int rowsUpdated = pst.executeUpdate();
 
-    }//GEN-LAST:event_jButton1MouseClicked
+            if (rowsUpdated > 0) {
+            JOptionPane.showMessageDialog(null, "Guest updated successfully!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Failed to update guest.");
+        }
+        
+        pst.close();
+        conn.close();
+        
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_SubmitMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -160,7 +213,7 @@ if (hasError) {
     public javax.swing.JTextField Contact;
     public javax.swing.JTextField Email;
     public javax.swing.JTextField FullName;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Submit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

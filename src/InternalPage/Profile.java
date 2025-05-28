@@ -286,6 +286,11 @@ public class Profile extends javax.swing.JInternalFrame {
 
         jButton3.setText("Update");
         jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
         jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 380, 50, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -432,6 +437,10 @@ public class Profile extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error uploading image: " + e.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

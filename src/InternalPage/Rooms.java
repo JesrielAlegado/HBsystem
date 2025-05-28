@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package InternalPage;
 
 import config.connectdb;
-import floatedPage.EditRoom;
 import floatedPage.addRoom;
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -61,8 +55,8 @@ public class Rooms extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         guest = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        Rooms = new javax.swing.JScrollPane();
+        room = new javax.swing.JScrollPane();
         room_tbl = new javax.swing.JTable();
         editPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -98,11 +92,11 @@ public class Rooms extends javax.swing.JInternalFrame {
         room_tbl.setShowVerticalLines(false);
         room_tbl.getTableHeader().setResizingAllowed(false);
         room_tbl.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(room_tbl);
+        room.setViewportView(room_tbl);
 
-        jScrollPane1.setViewportView(jScrollPane2);
+        Rooms.setViewportView(room);
 
-        guest.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 570, 380));
+        guest.add(Rooms, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 570, 380));
 
         editPanel.setBackground(new java.awt.Color(51, 51, 51));
         editPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -121,6 +115,11 @@ public class Rooms extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Edit");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
         editPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 8, -1, -1));
 
         guest.add(editPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 100, 100, 30));
@@ -248,7 +247,7 @@ public class Rooms extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_editPanelMouseExited
 
     private void refreshPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshPanelMouseClicked
-
+        displayData();
     }//GEN-LAST:event_refreshPanelMouseClicked
 
     private void refreshPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshPanelMouseEntered
@@ -306,7 +305,7 @@ public class Rooms extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_search_barKeyReleased
 
     private void deletePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deletePanelMouseClicked
-        int selectedRow = room_tbl.getSelectedRow();
+      int selectedRow = room_tbl.getSelectedRow();
         if (selectedRow != -1) {
             int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this row?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
@@ -316,26 +315,24 @@ public class Rooms extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(null, "No row selected!");
         }
+              
     }//GEN-LAST:event_deletePanelMouseClicked
 
     private void editPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editPanelMouseClicked
-        EditRoom editPanel = new EditRoom(); // Panel for editing room details
-        JDialog dialog = new JDialog();
 
-        dialog.setTitle("Edit Room");
-        dialog.add(editPanel);
-        dialog.setSize(350, 450);
-        dialog.setLocationRelativeTo(null);
-        dialog.setModal(true);
-        dialog.setVisible(true);
     }//GEN-LAST:event_editPanelMouseClicked
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel6MouseClicked
 
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel3MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane Rooms;
     private javax.swing.JPanel addPanel;
     private javax.swing.JPanel deletePanel;
     private javax.swing.JPanel editPanel;
@@ -346,9 +343,8 @@ public class Rooms extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel refreshPanel;
+    private javax.swing.JScrollPane room;
     private javax.swing.JTable room_tbl;
     private javax.swing.JTextField search_bar;
     // End of variables declaration//GEN-END:variables

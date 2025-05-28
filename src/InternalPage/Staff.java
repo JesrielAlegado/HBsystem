@@ -7,7 +7,9 @@ import floatedPage.Edituser;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
 public class Staff extends javax.swing.JInternalFrame {
@@ -37,7 +39,7 @@ public class Staff extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        users = new javax.swing.JScrollPane();
         users_tbl = new javax.swing.JTable();
         addButton = new javax.swing.JButton();
         Refresh = new javax.swing.JButton();
@@ -59,9 +61,9 @@ public class Staff extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(users_tbl);
+        users.setViewportView(users_tbl);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 700, 360));
+        jPanel1.add(users, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 700, 360));
 
         addButton.setText("Add User");
         addButton.addActionListener(new java.awt.event.ActionListener() {
@@ -72,6 +74,11 @@ public class Staff extends javax.swing.JInternalFrame {
         jPanel1.add(addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 400, -1, 30));
 
         Refresh.setText("Refresh");
+        Refresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RefreshMouseClicked(evt);
+            }
+        });
         Refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RefreshActionPerformed(evt);
@@ -80,6 +87,11 @@ public class Staff extends javax.swing.JInternalFrame {
         jPanel1.add(Refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, -1, 30));
 
         deleteButton.setText("Delete User");
+        deleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteButtonMouseClicked(evt);
+            }
+        });
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
@@ -139,6 +151,26 @@ public class Staff extends javax.swing.JInternalFrame {
         dialog.setVisible(true); // Show the floating add_user
     }//GEN-LAST:event_editButtonActionPerformed
 
+    private void deleteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonMouseClicked
+                                                       
+     int selectedRow = users_tbl.getSelectedRow();
+        if (selectedRow != -1) {
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this row?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                DefaultTableModel model = (DefaultTableModel) users_tbl.getModel();
+                model.removeRow(selectedRow);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No row selected!");
+        }
+
+
+    }//GEN-LAST:event_deleteButtonMouseClicked
+
+    private void RefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RefreshMouseClicked
+        displayData();
+    }//GEN-LAST:event_RefreshMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Refresh;
@@ -146,7 +178,7 @@ public class Staff extends javax.swing.JInternalFrame {
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton editButton;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane users;
     private javax.swing.JTable users_tbl;
     // End of variables declaration//GEN-END:variables
 }

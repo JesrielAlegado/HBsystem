@@ -2,14 +2,21 @@
 package InternalPage;
 
 import config.connectdb;
+import floatedPage.EditGuest;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Frame;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 public class Guest extends javax.swing.JInternalFrame {
@@ -168,6 +175,11 @@ public class Guest extends javax.swing.JInternalFrame {
         Delete.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         Delete.setForeground(new java.awt.Color(255, 255, 255));
         Delete.setText("Delete");
+        Delete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DeleteMouseClicked(evt);
+            }
+        });
         deletePanel.add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 8, -1, -1));
 
         guest.add(deletePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, 100, 30));
@@ -300,7 +312,7 @@ public class Guest extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_editPanelMouseExited
 
     private void refreshPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshPanelMouseClicked
-        
+        displayData();
     }//GEN-LAST:event_refreshPanelMouseClicked
 
     private void refreshPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshPanelMouseEntered
@@ -400,7 +412,60 @@ public class Guest extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_search_barKeyReleased
 
     private void editPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editPanelMouseClicked
-        // TODO add your handling code here:
+                                                                              
+    int rowIndex = guest_tbl.getSelectedRow();
+
+    // Check if a row is selected
+    if (rowIndex < 0) {
+        JOptionPane.showMessageDialog(null, "Please select a guest from the table!");
+        return;
+    }
+
+    try {
+        connectdb dbc = new connectdb();
+        TableModel tbl = guest_tbl.getModel();
+
+        // Get guest ID from selected row
+        Object guestIdObj = tbl.getValueAt(rowIndex, 0);
+        if (guestIdObj == null || guestIdObj.toString().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Selected row has no guest ID!");
+            return;
+        }
+
+        String guestId = guestIdObj.toString().trim();
+        System.out.println("Guest ID to fetch: " + guestId);
+
+        String query = "SELECT * FROM guest WHERE guest_id = '" + guestId + "'";
+        ResultSet rs = dbc.getData(query);
+
+        if (rs.next()) {
+            JDialog dialog = new JDialog((Frame) null, "Edit Guest", true); // modal dialog with title
+            EditGuest newPanel = new EditGuest();
+
+            // Set text fields using your DB column names
+            newPanel.FullName.setText(rs.getString("full_name"));
+            newPanel.Email.setText(rs.getString("email"));
+            newPanel.Contact.setText(rs.getString("contact_number"));  // Add contact
+            newPanel.Address.setText(rs.getString("address"));
+
+            dialog.add(newPanel);
+            dialog.pack();
+            dialog.setLocationRelativeTo(null);
+            dialog.setVisible(true);
+
+            // Optionally, after closing dialog, refresh your guest table if data was changed
+            // loadGuests(); // <-- implement this method to reload guest_tbl from DB
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No guest found with ID: " + guestId);
+        }
+
+    } catch (SQLException ex) {
+        Logger.getLogger(Guest.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
+    }
+
+
     }//GEN-LAST:event_editPanelMouseClicked
 
     private void deletePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deletePanelMouseClicked
@@ -419,6 +484,10 @@ public class Guest extends javax.swing.JInternalFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void DeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DeleteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

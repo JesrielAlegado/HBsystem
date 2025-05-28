@@ -3,6 +3,7 @@ package Dashboard;
 
 import InternalPage.Bookings;
 import InternalPage.Guest;
+import InternalPage.Logs;
 import InternalPage.Profile;
 import InternalPage.Rooms;
 import InternalPage.Staff;
@@ -36,6 +37,7 @@ public class adminDashboard extends javax.swing.JFrame {
         roomButton = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -163,13 +165,23 @@ public class adminDashboard extends javax.swing.JFrame {
         });
         jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Logs");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, -1, -1));
+
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 170, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 914, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -232,6 +244,11 @@ public class adminDashboard extends javax.swing.JFrame {
         maindesktop.add(pf).setVisible(true);
     }//GEN-LAST:event_jLabel7MouseClicked
 
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+   Logs ls = new Logs();
+        maindesktop.add(ls).setVisible(true);
+    }//GEN-LAST:event_jLabel2MouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -269,6 +286,7 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel guestButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

@@ -28,7 +28,7 @@ public class EditRoom extends javax.swing.JPanel {
         Price = new javax.swing.JTextField();
         RoomNumber = new javax.swing.JTextField();
         RoomType = new javax.swing.JTextField();
-        BedNumber = new javax.swing.JTextField();
+        BedCount = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -52,8 +52,8 @@ public class EditRoom extends javax.swing.JPanel {
         RoomType.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(RoomType, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 180, 30));
 
-        BedNumber.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(BedNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 180, 30));
+        BedCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        add(BedCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 180, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Price");
@@ -91,74 +91,85 @@ public class EditRoom extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-       String roomNumber = RoomNumber.getText().trim();
-String roomType = RoomType.getText().trim();
-String bedNumber = BedNumber.getText().trim();
-String priceText = Price.getText().trim();
+                                        
+    String roomNumber = RoomNumber.getText().trim();
+    String roomType = RoomType.getText().trim();
+    String bedNumber = BedCount.getText().trim();
+    String priceText = Price.getText().trim();
 
-StringBuilder errorMsg = new StringBuilder();
-boolean hasError = false;
+    StringBuilder errorMsg = new StringBuilder();
+    boolean hasError = false;
 
-// Reset borders (optional UI feedback)
-RoomNumber.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-RoomType.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-BedNumber.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
-Price.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+    // Reset borders (optional UI feedback)
+    RoomNumber.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+    RoomType.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+    BedCount.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+    Price.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
 
-// Validate Room Number
-if (roomNumber.isEmpty()) {
-    errorMsg.append("- Room Number cannot be empty.\n");
-    RoomNumber.setBorder(new LineBorder(Color.RED, 1));
-    hasError = true;
-} else if (!roomNumber.matches("\\d+")) {
-    errorMsg.append("- Room Number must be a number.\n");
-    RoomNumber.setBorder(new LineBorder(Color.RED, 1));
-    hasError = true;
-}
+    // Validate Room Number
+    if (roomNumber.isEmpty()) {
+        errorMsg.append("- Room Number cannot be empty.\n");
+        RoomNumber.setBorder(new LineBorder(Color.RED, 1));
+        hasError = true;
+    } else if (!roomNumber.matches("\\d+")) {
+        errorMsg.append("- Room Number must be a number.\n");
+        RoomNumber.setBorder(new LineBorder(Color.RED, 1));
+        hasError = true;
+    }
 
-// Validate Room Type
-if (roomType.isEmpty()) {
-    errorMsg.append("- Room Type cannot be empty.\n");
-    RoomType.setBorder(new LineBorder(Color.RED, 1));
-    hasError = true;
-}
+    // Validate Room Type
+    if (roomType.isEmpty()) {
+        errorMsg.append("- Room Type cannot be empty.\n");
+        RoomType.setBorder(new LineBorder(Color.RED, 1));
+        hasError = true;
+    }
 
-// Validate Bed Number
-if (bedNumber.isEmpty()) {
-    errorMsg.append("- Bed Number cannot be empty.\n");
-    BedNumber.setBorder(new LineBorder(Color.RED, 1));
-    hasError = true;
-} else if (!bedNumber.matches("\\d+")) {
-    errorMsg.append("- Bed Number must be a number.\n");
-    BedNumber.setBorder(new LineBorder(Color.RED, 1));
-    hasError = true;
-}
+    // Validate Bed Number
+    if (bedNumber.isEmpty()) {
+        errorMsg.append("- Bed Number cannot be empty.\n");
+        BedCount.setBorder(new LineBorder(Color.RED, 1));
+        hasError = true;
+    } else if (!bedNumber.matches("\\d+")) {
+        errorMsg.append("- Bed Number must be a number.\n");
+        BedCount.setBorder(new LineBorder(Color.RED, 1));
+        hasError = true;
+    }
 
-// Validate Price
-if (priceText.isEmpty()) {
-    errorMsg.append("- Price cannot be empty.\n");
-    Price.setBorder(new LineBorder(Color.RED, 1));
-    hasError = true;
-} else {
-    try {
-        double price = Double.parseDouble(priceText);
-        if (price < 0) {
-            errorMsg.append("- Price cannot be negative.\n");
+    // Validate Price
+    if (priceText.isEmpty()) {
+        errorMsg.append("- Price cannot be empty.\n");
+        Price.setBorder(new LineBorder(Color.RED, 1));
+        hasError = true;
+    } else {
+        try {
+            double price = Double.parseDouble(priceText);
+            if (price < 0) {
+                errorMsg.append("- Price cannot be negative.\n");
+                Price.setBorder(new LineBorder(Color.RED, 1));
+                hasError = true;
+            }
+        } catch (NumberFormatException e) {
+            errorMsg.append("- Price must be a valid number.\n");
             Price.setBorder(new LineBorder(Color.RED, 1));
             hasError = true;
         }
-    } catch (NumberFormatException e) {
-        errorMsg.append("- Price must be a valid number.\n");
-        Price.setBorder(new LineBorder(Color.RED, 1));
-        hasError = true;
     }
-}
 
-// If there's any error, show message and stop
-if (hasError) {
-    JOptionPane.showMessageDialog(null, errorMsg.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
+    // If there's any error, show message and stop
+    if (hasError) {
+        JOptionPane.showMessageDialog(null, errorMsg.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // If we reach here, all validations passed
+    // TODO: Add your code to process the form data, e.g.:
+    // - Insert data into database
+    // - Update UI
+    // - Show success message
+
+    JOptionPane.showMessageDialog(null, "Room data submitted successfully!");
+
+
 
 // ✅ If no errors, proceed to update in database
 // Example: updateRoom(roomNumber, roomType, bedNumber, priceText);
@@ -167,7 +178,7 @@ if (hasError) {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JTextField BedNumber;
+    public javax.swing.JTextField BedCount;
     public javax.swing.JTextField Price;
     public javax.swing.JTextField RoomNumber;
     public javax.swing.JTextField RoomType;
